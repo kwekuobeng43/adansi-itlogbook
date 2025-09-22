@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Printer Record</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container py-4">
+    <h1 class="text-center mb-4">🖨️ Add Printer Record</h1>
+
+    <!-- Navigation -->
+    <div class="mb-3 text-center">
+      <a href="feed.html" class="btn btn-primary btn-sm">📋 View Feed</a>
+      <a href="log.html" class="btn btn-secondary btn-sm">📑 View Logbook</a>
+    </div>
+
+    <!-- Form -->
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <form id="recordForm">
+          <div class="mb-3">
+            <label class="form-label">Printer Name</label>
+            <input type="text" class="form-control" id="printer" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Toner Name</label>
+            <input type="text" class="form-control" id="toner" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Notes</label>
+            <textarea class="form-control" id="notes" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Submit Record</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("recordForm");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+
+      let records = JSON.parse(localStorage.getItem("printerRecords")) || [];
+
+      const newRecord = {
+        date: new Date().toLocaleString(),
+        printer: document.getElementById("printer").value,
+        toner: document.getElementById("toner").value,
+        notes: document.getElementById("notes").value
+      };
+
+      records.push(newRecord);
+      localStorage.setItem("printerRecords", JSON.stringify(records));
+
+      form.reset();
+      alert("✅ Record added successfully!");
+    });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
